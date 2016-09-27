@@ -1,0 +1,23 @@
+.green {
+    background: green;
+}
+.content.container {
+    margin-top: 75px;
+}
+
+.turtle {
+    height: 380px;
+    width: 41.66667%;
+}
+
+.donatello {
+    background: url(/static/img/donatello.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
+
+img {
+    text-indent: -999px;
+}

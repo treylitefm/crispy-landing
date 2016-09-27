@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <a href="#" class="navbar-brand">Test App</a>
+                <div class="col-md-offset-8">
+                    <ul class="nav navbar-nav">
+                        <li class="{{ 'active' if color == 'green' }}"><a href="#">Green</a></li>
+                        <li class="{{ 'active' if color == 'yellow' }}"><a href="#">Yellow</a></li>
+                        <li class="{{ 'active' if color == 'red' }}"><a href="#">Red</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content container">
+            <div class="col-md-5 turtle"><img class="donatello" src=""></div>
+            <img class="col-md-5 col-md-offset-1 turtle" src="{{ url_for('static', filename='img/donatello.jpg') }}">
+        </div>
+    </body>
+</html>
