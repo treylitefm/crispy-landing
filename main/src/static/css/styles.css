@@ -1,0 +1,29 @@
+body > .container {
+    margin-top: 50px;
+}
+
+form button {
+    width: 100%;
+}
+
+.error {
+    color: white;
+    background: red;
+    border-radius: 5px;
+    font-size: .9em;
+    padding: 8px;
+}
+
+.status {
+    border-radius: 5px;
+}
+
+.green {
+    background: #00ff00;
+}
+.yellow {
+    background: yellow;
+}
+.red {
+    background: red;
+}

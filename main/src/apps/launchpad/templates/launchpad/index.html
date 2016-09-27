@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <a href="#" class="navbar-right btn btn-info">New App</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Your Apps</th>
+                <th>Status</th>
+                <th>Last Run</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="#">Checkered Windshields</a></td>
+                <td class="status green"></td>
+                <td>5 minutes ago</td>
+                <td>August 5th, 2019</td>
+            </tr>
+            <tr>
+                <td><a href="#">Checkered Windshields</a></td>
+                <td class="status yellow"></td>
+                <td>5 minutes ago</td>
+                <td>August 5th, 2019</td>
+            </tr>
+            <tr>
+                <td><a href="#">Checkered Windshields</a></td>
+                <td class="status red"></td>
+                <td>5 minutes ago</td>
+                <td>August 5th, 2019</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

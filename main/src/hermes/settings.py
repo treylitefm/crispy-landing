@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.launchpad',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'hermes.middleware.common.RequireLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'hermes.urls'
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'hermes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +120,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+LOGIN_REDIRECT_URL = '/launchpad/'
+
+LOGIN_REQUIRED_URLS = (
+    r'/launchpad/(.*)$',        
+)
+
+LOGIN_REQUIRED_URLS_EXCEPTIONS = (
+    r'/login/(.*)$',        
+    r'/logout/(.*)$',        
+    r'/register/(.*)$',        
+)
