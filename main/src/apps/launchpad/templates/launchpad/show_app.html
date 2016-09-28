@@ -3,41 +3,42 @@
 {% block content %}
 
 <div class="container">
-    <a href="#" class="navbar-right btn btn-info">New App</a>
+    <h2>{{ app.name }} ({{ app.get_protocol_display }}://{{ app.domain }}) <button class="new-page navbar-right btn btn-info">New Page</button></h2>
+    <form class="pages" method="post" action="{% url 'launchpad:new_page' app_id=app.id %}">
+        {% csrf_token %}
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Your Apps</th>
+                <th>Pages</th>
                 <th>Ping Health</th>
                 <th>Test Run Status</th>
                 <th>Last Test Run</th>
                 <th>Date Added</th>
+                <th>Enable</th>
             </tr>
         </thead>
         <tbody>
+            {% for page in app.page_set.all %}
             <tr>
-                <td><a href="#">Checkered Windshields</a></td>
-                <td class="status green"></td>
-                <td class="status green"></td>
+                <td><a href="#">{{ page.path }}</a></td>
+                <td class=""></td>
+                <td class=""></td>
                 <td>5 minutes ago</td>
-                <td>August 5th, 2019</td>
+                <td>{{ page.created_on }}</td>
+                {% if page.enabled %}
+                    <td><input type="checkbox" class="checked"></td>
+                {% else %}
+                    <td><input type="checkbox" class=""></td>
+                {% endif %}
             </tr>
-            <tr>
-                <td><a href="#">Checkered Windshields</a></td>
-                <td class="status yellow"></td>
-                <td class="status red"></td>
-                <td>5 minutes ago</td>
-                <td>August 5th, 2019</td>
-            </tr>
-            <tr>
-                <td><a href="#">Checkered Windshields</a></td>
-                <td class="status red"></td>
-                <td class="status yellow"></td>
-                <td>5 minutes ago</td>
-                <td>August 5th, 2019</td>
+            {% endfor %}
+            <tr class="hidden">
+                <td>{{ form.path }}</td>
             </tr>
         </tbody>
     </table>
+        <button type="submit" class="save btn btn-info navbar-right hidden">Save</button>
+    </form>
 </div>
 
 {% endblock %}

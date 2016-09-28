@@ -6,6 +6,10 @@ form button {
     width: 100%;
 }
 
+form.pages button {
+    width: 8%;
+}
+
 .error {
     color: white;
     background: red;

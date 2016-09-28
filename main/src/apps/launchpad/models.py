@@ -21,6 +21,7 @@ class App(models.Model):
     domain = models.CharField(max_length=255, default='')
     protocol = models.SmallIntegerField(choices=PROTOCOLS, default=0)
     owner = models.ForeignKey(User, default=DEFAULT_OWNER_ID)
+    enabled = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     class Meta:
@@ -30,6 +31,7 @@ class Page(models.Model):
     path = models.CharField(max_length=255, default='/')
     app = models.ForeignKey(App)
     ping_health = models.SmallIntegerField(default=1, choices=SEVERITIES)
+    enabled = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     class Meta:

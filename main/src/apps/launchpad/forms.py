@@ -7,7 +7,7 @@ class AppForm(forms.ModelForm):
         fields = ('name', 'domain', 'protocol')
         labels = {
             'name': 'App Name',        
-            'domain': 'Domain',        
+            'domain': 'Domain (Include port number if not running on ports 80/443)',        
             'protocol': 'Protocol'        
         }
         widgets = {
@@ -16,12 +16,13 @@ class AppForm(forms.ModelForm):
             'protocol': forms.Select(attrs={'class': 'form-control'})
         }
 
-    '''
-    def clean_name(self):
-        #if fails a validation:
-        #   rase ValidationError('Custom Error Message Here')
-        return self.cleaned_data['name']
-    '''
-
-class PageForm(forms.Form):
-    pass
+class PageForm(forms.ModelForm):
+    class Meta:
+        model = Page
+        fields = ('path',)
+        labels = {
+            'path': 'Path'        
+        }
+        widgets = {
+            'path': forms.TextInput(attrs={'placeholder': 'Path', 'class': 'path form-control', 'name': 'path', 'type': 'text'})
+        }
