@@ -128,7 +128,8 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = '/launchpad/'
 
 LOGIN_REQUIRED_URLS = (
-    r'/launchpad/(.*)$',        
+    r'/apps/(.*)$',        
+    r'/pages/(.*)$',        
 )
 
 LOGIN_REQUIRED_URLS_EXCEPTIONS = (

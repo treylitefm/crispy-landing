@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container">
-    <a href="#" class="navbar-right btn btn-info">New App</a>
+    <a href="{% url 'launchpad:new_app' %}" class="navbar-right btn btn-info">New App</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -15,6 +15,15 @@
             </tr>
         </thead>
         <tbody>
+            {% for app in apps %}
+            <tr>
+                <td><a href="{% url 'launchpad:show_app' app_id=app.id %}">{{ app.name }}</a></td>
+                <td class="status green"></td>
+                <td class="status green"></td>
+                <td>5 minutes ago</td>
+                <td>{{ app.created_on }}</td>
+            </tr>
+            {% endfor %}
             <tr>
                 <td><a href="#">Checkered Windshields</a></td>
                 <td class="status green"></td>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <form class="col-md-offset-3 col-md-6" method="post" action="{% url 'launchpad:new_app' %}">
+        <h2>Add a Page For Your App</h2>
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <button type="submit" class="btn btn-info center-block">Create App</button>
+        <br>
+        {% for field,errors in form.errors.items %}
+            {% for error in errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+    </form>
+</div>
+
+{% endblock %}
