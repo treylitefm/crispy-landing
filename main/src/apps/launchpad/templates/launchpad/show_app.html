@@ -3,32 +3,48 @@
 {% block content %}
 
 <div class="container">
-    <h2>{{ app.name }} ({{ app.get_protocol_display }}://{{ app.domain }}) <button class="edit-pages btn btn-info navbar-right">Edit</button><button class="new-page navbar-right btn btn-info">New Page</button></h2>
+    <h2>{{ app.name }} ({{ app.get_protocol_display }}://{{ app.domain }}) 
+        <button class="new-page navbar-right btn btn-info">New Page</button>
+        <select class="browser-control navbar-right form-control">
+            <option>FIREFOX</option>
+            <option>CHROME</option>
+        </select>
+    </h2>
     <form class="pages" method="post" action="{% url 'launchpad:new_page' app_id=app.id %}">
         {% csrf_token %}
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Pages</th>
-                <th>Ping Health</th>
-                <th>Test Run Status</th>
+                <th> <span data-toggle="tooltip" data-placement="top" title="Green: Good to go! Orange: Queued! Red: Ruh-Roh!">Test Run Status</span></th>
                 <th>Last Test Run</th>
                 <th>Date Added</th>
                 <th>Enable</th>
+                <th>Launch</th>
             </tr>
         </thead>
         <tbody>
-            {% for page in app.page_set.all %}
+            {% for page in app.page_set.all reversed %}
             <tr>
-                <td><a href="#">{{ page.path }}</a></td>
-                <td class=""></td>
-                <td class=""></td>
-                <td>5 minutes ago</td>
-                <td>{{ page.created_on }}</td>
-                {% if page.enabled %}
-                    <td><input type="checkbox" class="checked"></td>
+                <td><a href="{% url 'launchpad:show_page' app_id=app.id page_id=page.id %}" class="page-anchor" data-page-id={{ page.id }}>{{ page.path }}</a></td>
+                {% if page.test_set.all.last %}
+                    {% for state,color in status.iteritems %}
+                        {% if state == page.test_set.all.last.status %}
+                            <td class="{{ color }} status-{{ page.id }}"></td>
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
-                    <td><input type="checkbox" class=""></td>
+                    <td class="status-{{ page.id }}"></td>
+                {% endif %}
+                {% load humanize %}
+                <td>{{ page.test_set.all.last.created_on|naturaltime }}</td>
+                <td>{{ page.created_on|naturaltime }}</td>
+                {% if page.enabled %}
+                    <td><input type="checkbox" class="activate-{{ page.id }} activate" data-page-id="{{ page.id }}" checked></td>
+                    <td><button class="launch btn btn-info launch-{{ page.id }}" data-page-id="{{ page.id }}">Launch</button></td>
+                {% else %}
+                    <td><input type="checkbox" class="activate-{{ page.id }} activate" data-page-id="{{ page.id }}"></td>
+                    <td><button class="launch btn btn-info launch-{{ page.id }}" data-page-id="{{ page.id }}" disabled>Launch</button></td>
                 {% endif %}
             </tr>
             {% endfor %}
@@ -40,5 +56,22 @@
         <button type="submit" class="save btn btn-info navbar-right hidden">Save</button>
     </form>
 </div>
-
+<div class="thumbnail-container container">
+    {% load staticfiles %}
+    {% for thumb in thumbs %}
+    <a href="{% static 'img/'|add:thumb.screenshot %}" data-created-on="{{ thumb.created_on }}" data-path="{{ thumb.page.path }}" data-toggle="lightbox" data-gallery="hidden-images" class="col-sm-4 thumb-wrapper">
+        <div style="background-size: cover;background-image: url({%static 'img/'|add:thumb.screenshot %})" class="thumb"></div>
+    </a>
+    {% endfor %}
+    <!-- elements not showing, use data-remote 
+    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=264" data-title="Hidden item 1"></div>
+    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="//www.youtube.com/embed/b0jqPvpn3sY" data-title="Hidden item 2"></div>
+    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=265" data-title="Hidden item 3"></div>
+    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=266" data-title="Hidden item 4"></div>
+    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=267" data-title="Hidden item 5"></div>
+    </div>
+    -->
+    <a href="" data-created-on="" data-path="" data-toggle="lightbox" data-gallery="hidden-images" class="col-sm-4 canon-thumb-wrapper hidden thumb-wrapper">
+        <div style="" class="hidden thumb"></div>
+    </a>
 {% endblock %}

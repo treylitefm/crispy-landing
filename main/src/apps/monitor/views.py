@@ -6,6 +6,10 @@ from django.http import JsonResponse
 import requests
 
 MONITOR_RUNNER_URL = 'http://192.168.99.100:6000/'
+BROWSERS = {
+    'firefox': 0,
+    'chrome': 1
+}
 
 def index(request, test_id):
     test = Test.objects.filter(id=test_id)
@@ -28,15 +32,21 @@ def new_test(request, page_id):
     if request.method == 'POST':
         data = {}
         page = Page.objects.get(id=page_id)
-        test = Test.objects.create(page=page, status=0) 
+        if 'browser' in request.POST:
+            data['browser'] = request.POST['browser'].lower()
+        else:
+            data['browser'] = 'firefox'
+
+        print data
+        print request.POST
+
+        test = Test.objects.create(page=page, status=0, browser=BROWSERS[data['browser']]) 
         test.save()
         domain = page.app.domain if page.app.domain[-1] != '/' else page.app.domain[:-1]
         data['url'] = page.app.get_protocol_display()+'://'+domain+page.path
         data['page_id'] = page.id
         data['app_id'] = page.app.id
         data['test_id'] = test.id
-        if 'browser' in request.POST:
-            data['browser'] = request.POST['browser']
 
         requests.post(MONITOR_RUNNER_URL+'launch/', data)     
         data['status'] = 'QUEUED'
@@ -53,3 +63,16 @@ def update_test(request, test_id):
             else:
                 test.update(status=request.POST['status'])
     return JsonResponse({ 'test': ''})
+
+@csrf_exempt
+def get_tests(request, page_id):
+    test_objects = Test.objects.filter(page__id=page_id)
+
+    if test_objects:
+        tests = [ (test.id, test.screenshot,test.created_on,) for test in test_objects ]
+    else:
+        tests = []
+    return JsonResponse({
+        'page_id': page_id,
+        'tests': tests
+    })

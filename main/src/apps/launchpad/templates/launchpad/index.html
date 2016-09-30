@@ -8,43 +8,29 @@
         <thead>
             <tr>
                 <th>Your Apps</th>
-                <th>Ping Health</th>
                 <th>Test Run Status</th>
                 <th>Last Test Run</th>
                 <th>Date Added</th>
             </tr>
         </thead>
         <tbody>
+            {% load humanize %}
             {% for app in apps %}
             <tr>
                 <td><a href="{% url 'launchpad:show_app' app_id=app.id %}">{{ app.name }}</a></td>
-                <td class="status green"></td>
-                <td class="status green"></td>
-                <td>5 minutes ago</td>
-                <td>{{ app.created_on }}</td>
+                {% if app.page_set.all.last.test_set.all.last %}
+                    {% for state,color in status.iteritems %}
+                        {% if state == app.page_set.all.last.test_set.all.last.status %}
+                        <td class="{{ color }} status"></td>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                        <td class="status"></td>
+                {% endif %}
+                <td>{{ app.page_set.all.last.test_set.all.last.created_on|naturaltime }}</td>
+                <td>{{ app.created_on|naturaltime}}</td>
             </tr>
             {% endfor %}
-            <tr>
-                <td><a href="#">Checkered Windshields</a></td>
-                <td class="status green"></td>
-                <td class="status green"></td>
-                <td>5 minutes ago</td>
-                <td>August 5th, 2019</td>
-            </tr>
-            <tr>
-                <td><a href="#">Checkered Windshields</a></td>
-                <td class="status yellow"></td>
-                <td class="status red"></td>
-                <td>5 minutes ago</td>
-                <td>August 5th, 2019</td>
-            </tr>
-            <tr>
-                <td><a href="#">Checkered Windshields</a></td>
-                <td class="status red"></td>
-                <td class="status yellow"></td>
-                <td>5 minutes ago</td>
-                <td>August 5th, 2019</td>
-            </tr>
         </tbody>
     </table>
 </div>

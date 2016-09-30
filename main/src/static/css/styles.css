@@ -1,3 +1,7 @@
+body {
+ padding-bottom: 40px;
+}
+
 body > .container {
     margin-top: 50px;
 }
@@ -6,9 +10,10 @@ form button {
     width: 100%;
 }
 
-form.pages button {
+form.pages button.save {
     width: 8%;
 }
+
 
 .error {
     color: white;
@@ -32,6 +37,25 @@ form.pages button {
     background: red;
 }
 
+.orange {
+    background: orange;
+}
+
 h2 button {
     margin-left: 10px;
+}
+
+.thumb-wrapper {
+    height: 400px;
+    margin-bottom: 25px;
+}
+
+.thumb {
+    width: 100%;
+    height: 100%;
+}
+
+.browser-control {
+    display: inline;
+    width: 20%;
 }

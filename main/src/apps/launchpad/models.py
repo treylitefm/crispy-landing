@@ -20,6 +20,8 @@ class App(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'apps'
+        ordering = ['created_on',]
+        get_latest_by = 'created_on'
 
 class Page(models.Model):
     path = models.CharField(max_length=255, default='/')
@@ -29,4 +31,6 @@ class Page(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'pages'
+        ordering = ['created_on',]
+        get_latest_by = 'created_on'
 

@@ -8,21 +8,28 @@
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <a href="#" class="navbar-brand">Test App</a>
-                <div class="col-md-offset-8">
-                    <ul class="nav navbar-nav">
-                        <li class="{{ 'active' if color == 'green' }}"><a href="#">Green</a></li>
-                        <li class="{{ 'active' if color == 'yellow' }}"><a href="#">Yellow</a></li>
-                        <li class="{{ 'active' if color == 'red' }}"><a href="#">Red</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="content container">
-            <div class="col-md-5 turtle"><img class="donatello" src=""></div>
-            <img class="col-md-5 col-md-offset-1 turtle" src="{{ url_for('static', filename='img/donatello.jpg') }}">
+        <div class="container">
+            {% if not all_ninjas and not ninja %}
+                <h1>Nothing to see here!</h1>
+            {% endif %}
+
+            {% if ninja == 'april'%}
+                <img src="{{ url_for('static', filename='img/notapril.jpg') }}">
+            {% elif ninja == 'blue' %}
+                <img src="{{ url_for('static', filename='img/leonardo.jpg') }}">
+            {% elif ninja == 'red' %}
+                <img src="{{ url_for('static', filename='img/raphael.jpg') }}">
+            {% elif ninja == 'purple' %}
+                <img src="{{ url_for('static', filename='img/donatello.jpg') }}">
+            {% elif ninja == 'orange' %}
+                <img src="{{ url_for('static', filename='img/michelangelo.jpg') }}">
+            {% endif %}
+            {% if all_ninjas %}
+                <img src="{{ url_for('static', filename='img/leonardo.jpg') }}">
+                <img src="{{ url_for('static', filename='img/raphael.jpg') }}">
+                <img src="{{ url_for('static', filename='img/donatello.jpg') }}">
+                <img src="{{ url_for('static', filename='img/michelangelo.jpg') }}">
+            {% endif %}
         </div>
     </body>
 </html>
