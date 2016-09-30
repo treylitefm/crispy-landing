@@ -2,19 +2,32 @@ monitor:
   image: treylitefm/monitor
   volumes:
       - $PWD/monitor/src:/var/monitor
-  entrypoint: python server.py
+      - $PWD/main/src/static:/var/monitor/static
+  links:
+      - hub
+      - redis
+  ports:
+      - "6000:6000"
+  expose:
+      - "8080-9099"
+  restart: always
 hub:
   image: selenium/hub
   ports:
     - "4444:4444"
+  restart: always
 firefox:
   image: selenium/node-firefox
   links:
     - hub
+    - monitor
+  restart: always
 chrome:
   image: selenium/node-chrome
   links:
     - hub
+    - monitor
+  restart: always
 redis:
   container_name: redis-server
   image: redis

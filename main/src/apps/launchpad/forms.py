@@ -2,6 +2,13 @@ from django import forms
 from models import App,Page
 
 class AppForm(forms.ModelForm):
+    def clean_domain(self):
+        data = self.cleaned_data['domain']
+        if data.startswith('http://'):
+            data = data.replace('http://', '')
+        if data.startswith('https://'):
+            data = data.replace('https://', '')
+        return data
     class Meta:
         model = App
         fields = ('name', 'domain', 'protocol')
@@ -17,6 +24,12 @@ class AppForm(forms.ModelForm):
         }
 
 class PageForm(forms.ModelForm):
+    def clean_path(self):
+        data = self.cleaned_data['path']
+        if data[0] != '/':
+            data = '/'+data
+        data = data.replace(' ', '')
+        return data
     class Meta:
         model = Page
         fields = ('path',)

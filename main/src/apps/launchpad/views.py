@@ -13,11 +13,10 @@ def index(request):
 
 def new_app(request):
     if request.method == 'POST':
-        print request.POST
         form = AppForm(request.POST)
         if form.is_valid():
             app = form.save()
-            return redirect('launchpad:show_app', kwargs={'app_id': app.id})
+            return redirect(reverse('launchpad:show_app', kwargs={'app_id': app.id}))
     else:
         form = AppForm()
 
@@ -33,7 +32,7 @@ def show_app(request, app_id):
 def new_page(request, app_id):
     if request.method == 'POST':
         form = PageForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and not Page.objects.filter(path=form.cleaned_data['path']):
             page = form.save(commit=False)
             page.app = App.objects.get(id=app_id)
             page = form.save()

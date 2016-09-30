@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container">
-    <h2>{{ app.name }} ({{ app.get_protocol_display }}://{{ app.domain }}) <button class="new-page navbar-right btn btn-info">New Page</button></h2>
+    <h2>{{ app.name }} ({{ app.get_protocol_display }}://{{ app.domain }}) <button class="edit-pages btn btn-info navbar-right">Edit</button><button class="new-page navbar-right btn btn-info">New Page</button></h2>
     <form class="pages" method="post" action="{% url 'launchpad:new_page' app_id=app.id %}">
         {% csrf_token %}
     <table class="table table-striped">
