@@ -1,5 +1,16 @@
 version: "2"
 services:
+    nginx:
+        build:
+            context: nginx
+            dockerfile: Dockerfile
+        image: treylitefm/nginx
+        links:
+            - hermes
+        ports:
+            - "80:80"
+        volumes:
+            - ./main/src:/var/www/hermes
     hermes:
         container_name: hermes
         build:
@@ -14,7 +25,6 @@ services:
             - postgres
         depends_on:
             - postgres
-        entrypoint: python manage.py runserver 0.0.0.0:8000
     test_app:
         container_name: flask_test_app
         build: 

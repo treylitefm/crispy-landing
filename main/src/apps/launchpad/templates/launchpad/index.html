@@ -15,10 +15,10 @@
         </thead>
         <tbody>
             {% load humanize %}
-            {% for app in apps %}
+            {% for app in apps reversed %}
             <tr>
                 <td><a href="{% url 'launchpad:show_app' app_id=app.id %}">{{ app.name }}</a></td>
-                {% if app.page_set.all.last.test_set.all.last %}
+                {% if app.page_set.all.last.tests.all.last %}
                     {% for state,color in status.iteritems %}
                         {% if state == app.page_set.all.last.test_set.all.last.status %}
                         <td class="{{ color }} status"></td>

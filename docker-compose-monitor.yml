@@ -1,5 +1,9 @@
 monitor:
   image: treylitefm/monitor
+  context: 
+  build:
+      context: monitor
+      dockerfile: Dockerfile
   volumes:
       - $PWD/monitor/src:/var/monitor
       - $PWD/main/src/static:/var/monitor/static

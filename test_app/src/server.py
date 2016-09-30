@@ -18,4 +18,4 @@ def ninja(ninja_color):
     else:
         return render_template('index.html', ninja='april')
 
-app.run(debug=True)
+app.run(debug=True, host='0.0.0.0')

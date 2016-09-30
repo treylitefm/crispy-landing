@@ -59,19 +59,11 @@
 <div class="thumbnail-container container">
     {% load staticfiles %}
     {% for thumb in thumbs %}
-    <a href="{% static 'img/'|add:thumb.screenshot %}" data-created-on="{{ thumb.created_on }}" data-path="{{ thumb.page.path }}" data-toggle="lightbox" data-gallery="hidden-images" class="col-sm-4 thumb-wrapper">
-        <div style="background-size: cover;background-image: url({%static 'img/'|add:thumb.screenshot %})" class="thumb"></div>
-    </a>
+        {% if thumb.screenshot %}
+            <a href="{% static 'img/'|add:thumb.screenshot %}" data-created-on="{{ thumb.created_on }}" data-path="{{ thumb.page.path }}" data-toggle="lightbox" data-gallery="hidden-images" class="col-sm-4 thumb-wrapper">
+                <div style="background-size: cover;background-image: url({%static 'img/'|add:thumb.screenshot %})" class="thumb"></div>
+            </a>
+        {% endif %}
     {% endfor %}
-    <!-- elements not showing, use data-remote 
-    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=264" data-title="Hidden item 1"></div>
-    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="//www.youtube.com/embed/b0jqPvpn3sY" data-title="Hidden item 2"></div>
-    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=265" data-title="Hidden item 3"></div>
-    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=266" data-title="Hidden item 4"></div>
-    <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="https://unsplash.it/1200/768.jpg?image=267" data-title="Hidden item 5"></div>
-    </div>
-    -->
-    <a href="" data-created-on="" data-path="" data-toggle="lightbox" data-gallery="hidden-images" class="col-sm-4 canon-thumb-wrapper hidden thumb-wrapper">
-        <div style="" class="hidden thumb"></div>
-    </a>
+
 {% endblock %}
