@@ -5,7 +5,7 @@ from ..launchpad.models import Page
 from django.http import JsonResponse
 import requests
 
-MONITOR_RUNNER_URL = 'monitor:6000/'
+MONITOR_RUNNER_URL = 'http://monitor:6000/'
 BROWSERS = {
     'firefox': 0,
     'chrome': 1
