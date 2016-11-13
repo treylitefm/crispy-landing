@@ -5,7 +5,7 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python python-pip
 
 RUN pip install --upgrade pip
-RUN pip install flask flask-bcrypt flask-cors
+RUN pip install flask flask-cors
 
 EXPOSE 5000
 

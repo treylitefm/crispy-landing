@@ -2,7 +2,7 @@ FROM ubuntu:trusty
 MAINTAINER treylitefm
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y python python-pip libpq-dev python-dev
+RUN apt-get install -y python python-pip libpq-dev python-dev build-essential libssl-dev libffi-dev
 
 RUN pip install --upgrade pip
 RUN pip install psycopg2==2.6.2 Django==1.10.1 bcrypt==3.1.1 gunicorn==19.6.0
