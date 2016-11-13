@@ -65,7 +65,13 @@ def scan_script(url, browser=None, test_id=None):
     
     png = 'screenshot-'+str(datetime.now())+'.png'
     png = png.replace(' ', '_')
-    filename = './static/img/'+png
+    directory = './static/img/'
+    filename = directory+png
+
+    if not os.path.exists(directory):
+        print 'Warning! Path: ./static/img/ does not exist -- Creating it now'
+        os.makedirs(directory)
+
     print 'Attempting to save screenshot:',filename
     if driver.save_screenshot(filename):
         print 'Screenshot saved:',filename
