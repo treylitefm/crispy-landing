@@ -11,7 +11,7 @@ import requests
 VALID_STATUS_CODES = (200, 301, 302) 
 INVALID_STATUS_CODES = (404, 500)
 VALID_URL_REGEX = r'^(https?:\/\/.*)'
-UPSTREAM = 'http://192.168.99.100:8000/'
+UPSTREAM = 'http://hermes:8000/'
 
 HOSTNAME = os.environ['HOSTNAME']
 
