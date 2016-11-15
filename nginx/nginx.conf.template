@@ -41,7 +41,7 @@ http {
             proxy_intercept_errors on;
             proxy_pass http://[app_name]:[port_number]/;
             proxy_set_header Host $http_host;
-            #proxy_redirect / /[path_optional]/;
+            proxy_redirect / /[app_name]/;
         }
 
         location ~ \.(jpg|png|css|js)$ {
